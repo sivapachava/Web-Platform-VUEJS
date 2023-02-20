@@ -1,125 +1,174 @@
 <template>
-  <div class="loginform"> 
-    <div class="loginbox">
-    <div class="fa fa-user-circle image-icon"></div>
-    <h1>Login Here</h1>
-               <form>
-                   <p>Username</p>
-                   <input type="text" name="" placeholder="Enter Username">                
-                   <p>Password</p>
-                   <input type="password" name="" placeholder="Enter password">
-                   <div class="Button">                 
-                   <input type="submit" name="" value="login">
-                   </div>
-                   <a href="">Forgot Your Password?</a><br>
-                   <a href="">Don't have an account?</a>                            
-               </form> 
-           </div>
+  <ForgotPasw />
+  <div class="login-container">  
+      <div>
+    <form class="login-form" @submit.prevent="login">
+      <div class="fa fa-user-circle image-icon"></div>
+      <h2>Login Here</h2>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter Your User Name" v-model="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-container">
+          <input id="password" :type="showPassword ? 'text' : 'password'"  v-model="password" placeholder="Enter Your Password"/>
+          <span class="toggle-password" @click="toggleShowPassword">
+          <i class="fa" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit">Login</button>
+      </div>
+      <div class="login-links">
+      <router-link to="/forgot-password">Forgot Your Password?</router-link>
+      <span> | </span>
+      <router-link to="/signup">Don't have an account?</router-link>
+    </div>
+    </form>
   </div>
+</div>
 </template>
 
 <script>
+import axios from "axios";
+import ForgotPasw from "./ForgotPasw.vue"
 export default {
-
+  path: '/forgot-password',
+  name: 'forgotPassword',
+  component: ForgotPasw,
+  data() {
+    return {
+      username: '',
+      password: '',
+      showPassword: false,
+    }
+  },
+  methods: {
+    login() {
+  // Make an API call to authenticate the user
+  // You can use axios or any other library to make the API call
+  axios.post('/api/login', {
+    username: this.username,
+    password: this.password
+  })
+    // Navigate to the home page upon successful login
+    this.$router.push('/')
+  
+  .catch(error => {
+    console.log(error)
+    alert('Login failed')
+  });
+},
+toggleShowPassword() {
+        this.showPassword = !this.showPassword;
+      },
+  }
 }
 </script>
 
 <style scoped>
-.loginform{
-    width:100%;
-    height:90vh;
-    display: flex;
-    margin-top: 10px;
-    background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\main-vue-p\src\assets\backimage.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  margin-top:5px;
+  align-items: center;
+  background-size: cover;
+  width:100%;
+  height:90vh;
+  background-repeat: no-repeat;
+  background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\internship-project-m2\Web-Platform-VUEJS\src\assets\backimage.jpg");
 }
-.loginbox{
-    align-items: center;
-    position: absolute;
-    width:670px;
-    height:430px;
-    margin-left: 300px;
-    background: hsl(180, 4%, 90%);
-    box-sizing:border-box; 
-    padding: 70px 30px;
-    margin-top: 70px;   
+
+.login-form {
+  width: 500px;
+  height: 380px;
+  margin-top: 70px;
+  margin-left: 50px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-.image-icon{
+ .image-icon{
     width:70px;
     height:70px;
     border-radius:50%;
     position: absolute;
-    left: 300px;
-    top: 5px;
+    left: 620px;
+    top: 170px;
 }
-h1{
-    margin:0;
-    padding: 0 0 20px;
-    text-align: center;
-    font-size: 42px;
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 70px;
 }
-.loginbox p{
-    margin:0;
-    padding:0;
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 90px;
+
+.form-group {
+  margin-bottom: 20px;
+  margin-left: 25px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 18px;
+  margin-left: -380px;
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.password-container {
     display: flex;
+    align-items: center;
+  }
+.fa-eye{
+  cursor: pointer;
+  margin-left: -30px;
 }
-.loginbox input{
-    width: 70%;
-    margin-bottom: 20px;
+button[type="submit"] {
+  display: block;
+  width: 95%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3f51b5;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 35px;
 }
-.loginbox input[type="text"], input[type="password"]
-{
-    border: none;
-    border-bottom: 1px solid rgb(28, 27, 27);
-    background: transparent;
-    height: 40px;
-    font-size: 18px;
+
+button[type="submit"]:hover {
+  background-color: #2c387e;
 }
-form .Button
-{
-    height: 25px;
-    margin: 25px 170px;
-    border-radius: 5px;
-    padding: 0px 200px 0px 100px;
-    width: 100%;
-    
+
+.login-links {
+  margin-top: 20px;
+  font-size: 14px;
 }
-.loginbox input[type="submit"]
-{
-    border: none;
-    width: 10%;
-    background: rgb(26, 24, 24);
-    height: 40px;
-    font-size: 20px;
-    text-align: center;
-    outline:none;
-    color:#fff;
-    border-radius: 5px;
-    display:flex;
-    flex-wrap: wrap;
-    padding: 0px 50px 0px 10px;
+
+.login-links a,
+.login-links router-link {
+  text-decoration: none;
+  color: #3f51b5;
+  font-weight: bold;
 }
-.loginbox input[type="submit"]:hover
-{
-    cursor: pointer;
-    background: #aaa38d;
-    color: #000;
-    position: relative;
-}
-.loginbox a
-{
-    text-decoration: none;
-    font-size: 15px;
-    line-height: 20px;
-    color: darkblue;
-    padding-right: 300px;
-}
-.loginbox a:hover
-{
-    color: #db4227
+
+.login-links a:hover,
+.login-links router-link:hover {
+  text-decoration: underline;
 }
 </style>

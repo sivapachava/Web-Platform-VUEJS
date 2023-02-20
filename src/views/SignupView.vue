@@ -1,104 +1,113 @@
 <template>
-  <div class ="signupform">
-    <div class ="content"> 
-    <h1 class="title1">Create an Account Here!</h1>
-            <form action="#">
-                <div class="user-details">
-                <div class="input-box">
-                <span class="detais">Fullname</span>               
-                    <input type="text" name="" placeholder="Enter Your Fullname">
-                   </div> 
-                <div class="input-box">
-                <span class="detais">Username</span>               
-                    <input type="text" name="" placeholder="Enter Your Username">
-                    </div>
-                <div class="input-box">
-                <span class="detais">Email ID</span>               
-                    <input type="text" name="" placeholder="Enter Your Email ID">
-                    </div>
-                <div class="input-box">
-                <span class="detais">Phone Number</span>               
-                    <input type="text" pattern="[0-9] {10}"  name="" placeholder="Enter Your PhoneNumber">
-                    </div>
-                <div class="input-box">
-                <span class="detais">Password</span>               
-                    <input type="password" name="" placeholder="Enter Your Password">
-                    </div>
-                <div class="input-box">
-                <span class="detais">Confirm Password</span>               
-                    <input type="password" name="" placeholder="Confirm Your Password">
-                    </div> 
-                </div>                                 
-                <div class="Country-Details">
-                    <input type="radio" name="Country" id="dot-1">
-                    <input type="radio" name="Country" id="dot-2">
-                    <input type="radio" name="Country" id="dot-3">
-                <span class="Country-Title">Coutry</span>
-                    <div class="category">
-                    <label for="dot-1">
-                    <span class="dot one"></span>
-                    <span class="Country">France</span>
-                    </label>
-                    <label for="dot-2">
-                    <span class="dot two"></span>
-                    <span class="Country">Italy</span>
-                    </label>
-                    <label for="dot-3">
-                    <span class="dot three"></span>
-                    <span class="Country">Other</span>
-                    </label>
-                </div>
-                </div>
-                <div class="Button">                
-                <input type="Submit" value="Register">               
-                </div>                                          
-            </form>
-  </div>
-  </div>
-</template>
+  <div class="signupform">
+    <form class="content" @submit.prevent="register">
+      <h2>Create an Account Here!</h2>
+      <div class="user-details">
+      <div class="input-box">
+        <label class="deatils" for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter Your First Name" v-model="firstName" required>
+      </div>
+      <div class="input-box">
+        <label class="deatils" for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter Your Last Name" v-model="lastName" required>
+      </div>
+      <div class="input-box">
+        <label class="deatils" for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" placeholder="Enter Your Phone Number" v-model="phoneNumber" required>
+      </div>
+      <div class="input-box">
+        <label class="deatils" for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter Your EmailID" v-model="email" required>
+      </div>
+      <div class="input-box">
+        <label class="deatils" for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter Your Password" v-model="password" required>
+      </div>
+      <div class="input-box">
+        <label class="deatils" for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="ReEnter Your Password" v-model="confirmPassword" required>
+      </div>
+      <div>
+        <button type="submit">Register</button>
+      </div>
+    </div>
+    </form>
+    </div>
+  </template>
 
 <script>
+import axios from "axios";
 export default {
-
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  },
+  methods: {
+    register() {
+      if (this.password !== this.confirmPassword) {
+        alert('Passwords do not match')
+        return
+      }
+      // Make an API call to register the user
+      // You can use axios or any other library to make the API call
+      axios.post('/api/register', {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        email: this.email,
+        password: this.password
+      })
+        // Redirect to the login page upon successful registration
+        this.$router.push('/login')
+      
+      .catch(error => {
+        console.log(error)
+        alert('Registration failed')
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
-.signupform{
-    width:100%;
-    height:90vh;
-    display: flex;
-    margin-top: 10px;
-    background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\main-vue-p\src\assets\backimage.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+
+.signupform {
+  background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\internship-project-m2\Web-Platform-VUEJS\src\assets\backimage.jpg");
+  margin-top: 5px;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .content {
-    width: 800px;
-    height: 400px;
-    margin-top: 50px;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 5px;
-    background-color: rgb(242, 224, 224);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 50px;
-    padding-right: 0px;
-    font-family: sans-serif;
-    
+  width: 700px;
+  height: 400px;
+  margin-top: 70px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-.title1{ 
-    text-decoration-line: underline;
-    margin-left: 0px;
-    margin-top: 5px;
+
+.content h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
+
 .content .user-details
 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center; 
 }
 form .user-details .input-box
 {
@@ -109,9 +118,14 @@ form .user-details .input-box
     display: black;
     font-weight: bold;
     margin-bottom: 25px;
-    font-size: 12px;
+    font-size: 10px;
     color:#000;
-    margin-right: 250px;
+    font-style:inherit;
+}
+label{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
 }
 .user-details .input-box input
 {
@@ -122,79 +136,28 @@ form .user-details .input-box
     border: 1px;
     padding-left: 15px;
     font-size: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-bottom-width: 2px;
     transition: all 0.3s ease;
 }
-form .Country-Details .Country-Title
-{
-    font-size: 15px;
-    font-weight:bold;
-    margin-right:650px;
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3f51b5;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 200px;
+  margin-top:30px;
 }
-form .Country-Details .category
-{
-    display: flex;
-    width: 80%;
-    margin: 14px 0;
-    justify-content: space-between;
-}
-.Country-Details .category label
-{
-    display: flex;
-    align-items: center;
-    margin-left:50px;
-}
-.Country-Details .category .dot
-{
-    height: 10px;
-    width: 10px;
-    background:rgb(235, 189, 189);
-    border-radius: 50%;
-    margin-right: 10px;
-    border:5px solid transparent;
-    transition: all 0.3s ease;
-}
-#dot-1:checked ~ .category label .one,
-#dot-2:checked ~ .category label .two,
-#dot-3:checked ~ .category label .three{
-    border-color: rgb(42, 23, 188);
-    background: rgb(172, 15, 15);
-}
-form input[type="radio"]
-{
-    display: none;
-}
-form .Button
-{
-    align-items: center;
-    height: 20px;
-    margin: 45px 155px;
-    border-radius: 10px;
-    padding: 0px 200px 0px 150px;
-}
-form .Button input[type="submit"]
-{
-    border: none;
-    width: 40%;
-    background: rgb(173, 123, 123);
-    height: 40px;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    outline:none;
-    color:#000;
-    border-radius: 20px;
-    display:flex;
-    flex-wrap: wrap;
-    padding: 0px 100px 0px 40px;
-    font-family: sans-serif;
-}
-form .Button input[type="submit"]:hover
-{
-    cursor: pointer;
-    background: #9281c2;
-    color: #fff;
-    position: relative;
+
+button[type="submit"]:hover {
+  background-color: #2c387e;
 }
 </style>

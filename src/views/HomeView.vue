@@ -15,6 +15,29 @@
     <h1>Explore</h1>
     <h2>Join with us to explore your Museum data and to represents an important part of the regional and national scientific and cultural heritage data</h2>
     </div>
+
+    <div class="foot-container">
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy and Policy</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Become a data partner</a></li>
+          <li><a href="#">Conditions</a></li>
+        </ul>
+      </nav>
+      <div class="footer-social">
+        <ul>
+          <li><a href="#"><i class="fab fa-instagram" color="white"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter" color="white"></i></a></li>
+          <li><a href="#"><i class="fab fa-linkedin" color="white"></i></a></li>
+        </ul>
+      </div>
+      <div class="footer-copy">
+        <p>&copy; 2023 Our Company. All rights reserved.</p>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -34,7 +57,7 @@ export default {
     height:100vh;
     display: flex;
     margin-top: 10px;
-    background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\main-vue-p\src\assets\backimage.jpg");
+    background-image: url("C:\Users\Siva Ratnam Pachava\OneDrive\Desktop\internship-project-m2\Web-Platform-VUEJS\src\assets\backimage.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -90,11 +113,69 @@ export default {
 .title2 h1{
     text-decoration:underline;
     margin-top: 50px;
+    margin-left: 5px;
 }
 .title2 h2{
     text-decoration: none;
     text-decoration-line: none;
     margin-top: 20px;
+    font-size: 20px;
 
+}
+
+
+
+
+.foot-container {
+  height: 150px;
+  width: 100%;
+  background-color: rgb(78, 75, 75);
+  margin-top: 120px;
+}
+
+.footer-nav ul {
+  display: flex;
+  padding-right: 20px;
+  padding-left: 20px;
+  list-style: none;
+  margin-top: 0px;
+}
+
+.footer-nav li {
+  margin-right: 40px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.footer-nav a {
+  color: rgb(243, 240, 240);
+  text-decoration: none;
+  font-family: sans-serif;
+}
+.footer-nav a:hover {
+  color: rgb(243, 240, 240);
+  text-decoration:underline;
+
+}
+.footer-social ul {
+  list-style: none;
+  display: flex;
+  margin-left: 30px;
+}
+
+.footer-social li {
+  display: flex;
+  margin-right: 30px;
+}
+
+.footer-social i {
+  font-size: 24px;
+  color: rgb(243, 240, 240);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgb(243, 240, 240);
+  margin-left: 100px;
 }
 </style>
